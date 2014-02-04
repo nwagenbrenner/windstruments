@@ -51,6 +51,8 @@ if __name__ == '__main__':
         Usage()
 
 Vaz = int(azimuth) + 90 #Vaz is sonic azimuth + 90 degrees 
+if Vaz > 360:
+    Vaz = Vaz - 360 
 fout = fin[:-4] + '_%dmin_avg.txt' % avgMinutes
 
 f = csv.reader(open(fin, 'rU'))

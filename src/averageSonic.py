@@ -1,13 +1,10 @@
-
 import csv
 import datetime
 
 import numpy
 import scipy.stats as stats
-
 import math
 
-import sys
 import fnmatch
 
 ## 
@@ -50,7 +47,6 @@ class csat3:
         if '.' not in row[4]:
             row[4] = row[4] + '.0'
         
-        #for i in range(10000): #9000 rows = 15 min of data
         for i in range(20000): #9000 rows = 15 min of data
         
             dateTime = datetime.datetime.strptime(row[1]+'/'+row[2]+'/'+row[3][:2]+'/'+row[3][2:]+'/'+row[4][:-2]+'/'+row[4][-1:], "%Y/%j/%H/%M/%S/%f")
