@@ -48,25 +48,38 @@ class csat3:
             row[4] = row[4] + '.0'
         
         for i in range(20000): #9000 rows = 15 min of data
-        
-            dateTime = datetime.datetime.strptime(row[1]+'/'+row[2]+'/'+row[3][:2]+'/'+row[3][2:]+'/'+row[4][:-2]+'/'+row[4][-1:], "%Y/%j/%H/%M/%S/%f")
+            if len(row[3]) == 4: #check for different H:M formats
+                dateTime = datetime.datetime.strptime(row[1]+'/'+row[2]+'/'+row[3][:2]+'/'+row[3][2:]+'/'+row[4][:-2]+'/'+row[4][-1:], "%Y/%j/%H/%M/%S/%f")
+            if len(row[3]) == 3:
+                dateTime = datetime.datetime.strptime(row[1]+'/'+row[2]+'/'+'0'+row[3][0]+'/'+row[3][1:]+'/'+row[4][:-2]+'/'+row[4][-1:], "%Y/%j/%H/%M/%S/%f")
+
             theTime = dateTime.strftime("%M:%S.%f")[:-5]
         
             if(self.avgMinutes == 1):
                 if (fnmatch.fnmatch(theTime, '?1:00.1')):
+                    if i == 0:
+                        return None
                     break
             elif(self.avgMinutes == 5):
                 if (fnmatch.fnmatch(theTime, '?5:00.1')):
+                    if i == 0:
+                        return None
                     break
             elif(self.avgMinutes == 10):
                 if (fnmatch.fnmatch(theTime, '?0:00.1')):
+                    if i == 0:
+                        return None                    
                     break
             elif(self.avgMinutes == 15):
                 if (theTime == '00:00.1' or theTime == '15:00.1' \
                     or theTime == '30:00.1' or theTime == '45:00.1'):
+                    if i == 0:
+                        return None
                     break
             elif(self.avgMinutes == 30):
                 if (theTime == '00:00.1' or theTime == '30:00.1'):
+                    if i == 0:
+                        return None
                     break
                     
             dt.append(dateTime)
